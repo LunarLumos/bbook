@@ -1,312 +1,243 @@
+Certainly! Here's the updated Bash tutorial with a section on switch-case statements:
 
-### Basics of Bash Scripting
-
-#### Variables and Data Types
-
-Bash variables are loosely typed and primarily store strings. Here's how you can declare and use variables:
+### Bash Hello World
 
 ```bash
 #!/bin/bash
-
-# Variable assignment
-name="John"
-age=30
-pi=3.14159
-
-# Printing variables
-echo "Name: $name"
-echo "Age: $age"
-echo "Pi: $pi"
+echo "Hello, World!"
+```
+Output:
+```
+Hello, World!
 ```
 
-**Output:**
-```
-Name: John
-Age: 30
-Pi: 3.14159
-```
-
-#### Input and Output Handling
-
-Bash uses `read` for input and `echo` for output. Here’s an example:
+### Variables
 
 ```bash
-#!/bin/bash
-
-# Reading input from user
-echo "Enter your name:"
-read username
-
-# Outputting a message
-echo "Hello, $username!"
+NAME="John"
+AGE=30
+echo "My name is $NAME and I am $AGE years old."
+```
+Output:
+```
+My name is John and I am 30 years old.
 ```
 
-**Output:**
-```
-Enter your name:
-John
-Hello, John!
-```
-
-#### Control Structures (if-else, loops)
-
-Bash supports `if-else` statements and various loops (`for`, `while`, `until`):
+### Conditional Statements
 
 ```bash
-#!/bin/bash
-
-# if-else statement
-echo "Enter a number:"
-read num
-
-if [ $num -gt 0 ]; then
-    echo "$num is positive."
-elif [ $num -lt 0 ]; then
-    echo "$num is negative."
+NUM=10
+if [ $NUM -eq 10 ]; then
+  echo "Number is 10."
+elif [ $NUM -gt 10 ]; then
+  echo "Number is greater than 10."
 else
-    echo "$num is zero."
+  echo "Number is less than 10."
 fi
-
-# for loop example
-echo "Counting to 5:"
-for i in {1..5}; do
-    echo $i
-done
-
-# while loop example
-echo "Counting down from 3:"
-count=3
-while [ $count -gt 0 ]; do
-    echo $count
-    ((count--))
-done
+```
+Output:
+```
+Number is 10.
 ```
 
-**Output:**
-```
-Enter a number:
-7
-7 is positive.
-Counting to 5:
-1
-2
-3
-4
-5
-Counting down from 3:
-3
-2
-1
-```
+### Loops
 
-#### Functions
-
-Functions allow you to encapsulate reusable code:
+#### For Loop
 
 ```bash
-#!/bin/bash
+for i in {1..5}; do
+  echo "Iteration $i"
+done
+```
+Output:
+```
+Iteration 1
+Iteration 2
+Iteration 3
+Iteration 4
+Iteration 5
+```
 
-# Function definition
+#### While Loop
+
+```bash
+COUNT=0
+while [ $COUNT -lt 5 ]; do
+  echo "Count: $COUNT"
+  ((COUNT++))
+done
+```
+Output:
+```
+Count: 0
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+```
+
+### Functions
+
+```bash
 say_hello() {
-    local name=$1
-    echo "Hello, $name!"
+  echo "Hello, $1!"
 }
 
-# Calling the function
 say_hello "Alice"
-say_hello "Bob"
 ```
-
-**Output:**
+Output:
 ```
 Hello, Alice!
-Hello, Bob!
 ```
 
-#### File Operations
-
-Bash can manipulate files: reading, writing, and checking file properties:
+### Arithmetic
 
 ```bash
-#!/bin/bash
+NUM1=20
+NUM2=5
+echo "Addition: $((NUM1 + NUM2))"
+echo "Subtraction: $((NUM1 - NUM2))"
+echo "Multiplication: $((NUM1 * NUM2))"
+echo "Division: $((NUM1 / NUM2))"
+echo "Modulus: $((NUM1 % NUM2))"
+```
+Output:
+```
+Addition: 25
+Subtraction: 15
+Multiplication: 100
+Division: 4
+Modulus: 0
+```
 
-# Reading from a file
-echo "Contents of file:"
-cat file.txt
+### Arrays
 
-# Appending to a file
-echo "New line" >> file.txt
+```bash
+FRUITS=("Apple" "Banana" "Cherry")
+echo "First fruit: ${FRUITS[0]}"
+echo "All fruits: ${FRUITS[@]}"
+```
+Output:
+```
+First fruit: Apple
+All fruits: Apple Banana Cherry
+```
 
-# Checking if a file exists
-if [ -f file.txt ]; then
-    echo "file.txt exists."
+### Bash Arguments
+
+```bash
+echo "First argument: $1"
+echo "Second argument: $2"
+```
+Output (assuming script is named `script.sh` and executed with arguments `arg1` and `arg2`):
+```
+First argument: arg1
+Second argument: arg2
+```
+
+### Input
+
+```bash
+echo "Enter your name:"
+read NAME
+echo "Hello, $NAME!"
+```
+Output (assuming user inputs `Alice`):
+```
+Enter your name:
+Alice
+Hello, Alice!
+```
+
+### Concatenate Strings
+
+```bash
+STR1="Hello"
+STR2="World"
+echo "$STR1 $STR2"
+```
+Output:
+```
+Hello World
+```
+
+### Debugging
+
+```bash
+set -x  # Start debugging from here
+NUM=15
+if [ $NUM -lt 10 ]; then
+  echo "Number is less than 10."
+else
+  echo "Number is greater than or equal to 10."
 fi
+set +x  # Stop debugging
+```
+Output:
+```
++ NUM=15
++ '[' 15 -lt 10 ']'
++ echo 'Number is greater than or equal to 10.'
+Number is greater than or equal to 10.
 ```
 
-### Advanced Topics in Bash Scripting
-
-#### Advanced String Manipulation (Regular Expressions, Pattern Matching)
-
-Bash supports pattern matching and regex through globbing and parameter expansion:
+### Comments
 
 ```bash
-#!/bin/bash
-
-# Pattern matching with globbing
-echo "Files starting with 'file':"
-for file in file*; do
-    echo $file
-done
-
-# Using regex with [[ ]]
-string="Hello, world!"
-if [[ $string =~ [aeiou] ]]; then
-    echo "String contains a vowel."
-fi
+# This is a comment
+echo "This line is executed."
+```
+Output:
+```
+This line is executed.
 ```
 
-**Output:**
-```
-Files starting with 'file':
-file1
-file2
-file3
-String contains a vowel.
-```
-
-#### Advanced File Operations (Recursive Directories, File Locking)
-
-Bash can recursively process directories and implement file locking:
+### Read Files
 
 ```bash
-#!/bin/bash
-
-# Recursive directory traversal
-function traverse_directory {
-    local directory="$1"
-    for file in "$directory"/*; do
-        if [ -d "$file" ]; then
-            echo "Directory: $file"
-            traverse_directory "$file"
-        elif [ -f "$file" ]; then
-            echo "File: $file"
-        fi
-    done
-}
-
-echo "Files and directories:"
-traverse_directory "."
-
-# File locking example
-lockfile="file.lock"
-exec 200>$lockfile  # Create a lockfile descriptor
-flock -n 200 || { echo "Another process is holding the lock."; exit 1; }
-echo "Lock acquired. Performing operations..."
-sleep 5  # Simulating operations
-echo "Operations complete. Releasing lock."
-flock -u 200
+while IFS= read -r line; do
+  echo "Line: $line"
+done < "file.txt"
+```
+Output (assuming `file.txt` contains lines `Line 1` and `Line 2`):
+```
+Line: Line 1
+Line: Line 2
 ```
 
-**Output:**
-```
-Files and directories:
-Directory: ./subdir1
-File: ./file1.txt
-File: ./file2.txt
-Lock acquired. Performing operations...
-Operations complete. Releasing lock.
-```
-
-#### Advanced Control Structures (Select Loop, Extended Test Conditions)
-
-Bash offers `select` for creating interactive menus and extended test conditions:
+### Redirections
 
 ```bash
-#!/bin/bash
-
-# Select loop for interactive menu
-PS3="Select an option: "
-options=("Option 1" "Option 2" "Option 3" "Quit")
-select opt in "${options[@]}"; do
-    case $opt in
-        "Option 1")
-            echo "You chose Option 1"
-            ;;
-        "Option 2")
-            echo "You chose Option 2"
-            ;;
-        "Option 3")
-            echo "You chose Option 3"
-            ;;
-        "Quit")
-            break
-            ;;
-        *) echo "Invalid option";;
-    esac
-done
+echo "Hello" > output.txt  # Redirect stdout to a file
+cat < input.txt  # Redirect input from a file
+```
+Output:
+```
+(No output displayed for redirection examples)
 ```
 
-**Output:**
-```
-1) Option 1
-2) Option 2
-3) Option 3
-4) Quit
-Select an option:
-```
-(The actual output depends on user input.)
-
-#### Process Management (Background/Foreground Processes, Signal Handling)
-
-Bash manages processes, supports background/foreground tasks, and handles signals:
+### Switch-Case Statements
 
 ```bash
-#!/bin/bash
-
-# Running a process in the background
-echo "Starting background process..."
-sleep 10 &
-bg_process_pid=$!
-echo "Background process PID: $bg_process_pid"
-
-# Handling signals
-trap 'echo "Ctrl+C pressed. Exiting..."; exit' SIGINT
-
-echo "Waiting for background process to complete..."
-wait $bg_process_pid
-echo "Background process completed."
-
-# Foreground process example
-echo "Running foreground process..."
-sleep 5
-echo "Foreground process completed."
+FRUIT="Apple"
+case $FRUIT in
+  "Apple")
+    echo "Selected fruit is Apple."
+    ;;
+  "Banana")
+    echo "Selected fruit is Banana."
+    ;;
+  "Cherry")
+    echo "Selected fruit is Cherry."
+    ;;
+  *)
+    echo "Unknown fruit."
+    ;;
+esac
+```
+Output:
+```
+Selected fruit is Apple.
 ```
 
-**Output:**
-```
-Starting background process...
-Background process PID: 12345
-Waiting for background process to complete...
-^C
-Ctrl+C pressed. Exiting...
-Background process completed.
-Running foreground process...
-Foreground process completed.
-```
-
-#### Networking and Interprocess Communication (Socket Programming, SSH)
-
-Bash can interact with networks and processes using sockets and SSH:
-
-```bash
-#!/bin/bash
-
-# Socket programming (echo server example)
-port=12345
-echo "Starting echo server on port $port..."
-nc -l -p $port -e /bin/cat
-```
-
-### Conclusion
-
-These examples cover a broad range of basic and advanced topics in Bash scripting. Each topic demonstrates fundamental concepts and more sophisticated techniques, empowering you to automate tasks efficiently and effectively in a Unix-like environment. If you have any specific questions or need further clarification on any topic, feel free to ask!
+This tutorial now includes a section on switch-case statements (`case`) in Bash, demonstrating how to use it with example code and showing the expected output or behavior.
