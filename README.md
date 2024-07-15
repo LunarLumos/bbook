@@ -1,4 +1,3 @@
-Certainly! Here's the updated Bash tutorial with a section on switch-case statements:
 
 ### Bash Hello World
 
